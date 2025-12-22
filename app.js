@@ -7,7 +7,8 @@ import listings from './routes/listings.js'
 dotenv.config();
 const app = express();
 app.set("view engine","ejs")
-app.set(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}))
+app.use(express.json());
 
 // testing routes
 app.use("/test",test)
