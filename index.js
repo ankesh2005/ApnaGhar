@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import {Listing}  from "./models/listing.models.js";
+// import {Listing}  from "./models/listing.models.js";
+import test from "./tests/test.js";
 
 dotenv.config();
 const app = express();
-
+app.use("/test",test)
 async function main() {
   await mongoose.connect(process.env.MONGO_URL);
 }
@@ -26,15 +27,15 @@ main()
     console.log("not connected to mongodb",err);
   });
 
-app.get("/testListing",async (req,res)=>{
-  let sampleListing=new Listing({
-    title:"House villa",
-    description:"beach front",
-    price:1200,
-    location:"goa calagute",
-    country:"India",
-  });
-  const result=await sampleListing.save();
-  console.log("sample saved");
-  res.send(result);
-})
+// app.get("/testListing",async (req,res)=>{
+//   let sampleListing=new Listing({
+//     title:"House villa",
+//     description:"beach front",
+//     price:1200,
+//     location:"goa calagute",
+//     country:"India",
+//   });
+//   const result=await sampleListing.save();
+//   console.log("sample saved");
+//   res.send(result);
+// })
