@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import {Listing}  from "./models/listing.models.js";
 
 dotenv.config();
 const app = express();
@@ -24,3 +25,16 @@ main()
   .catch((err) => {
     console.log("not connected to mongodb",err);
   });
+
+app.get("/testListing",async (req,res)=>{
+  let sampleListing=new Listing({
+    title:"House villa",
+    description:"beach front",
+    price:1200,
+    location:"goa calagute",
+    country:"India",
+  });
+  const result=await sampleListing.save();
+  console.log("sample saved");
+  res.send(result);
+})

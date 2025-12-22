@@ -13,6 +13,7 @@ const listingSchema = new mongoose.Schema(
     image:{
       type:String,
       set: (v)=>v===""?"default_link":v,
+      default:"default_link"
     },
     price:{
       type:Number,
