@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ApnaGhar</title>
+  </head>
+  <body>
+    <h1>Edit Listing</h1>
+    <!-- Assuming you pass listing object from backend -->
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+      <!-- Title -->
+      <label for="title">Title</label>
+      <input
+        id="title"
+        name="listing[title]"
+        type="text"
+        value="<%= listing.title %>"
+        required
+      />
+      <br /><br />
+
+      <!-- Description -->
+      <label for="description">Description</label>
+      <textarea id="description" name="listing[description]" rows="4" required>
+<%= listing.description %></textarea
+      >
+      <br /><br />
+
+      <!-- Image -->
+      <label for="image">Image URL</label>
+      <input
+        id="image"
+        name="listing[image]"
+        type="url"
+        value="<%= listing.image %>"
+      />
+      <br /><br />
+
+      <!-- Price -->
+      <label for="price">Price ($)</label>
+      <input
+        id="price"
+        name="listing[price]"
+        type="number"
+        min="0"
+        step="0.01"
+        value="<%= listing.price %>"
+        required
+      />
+      <br /><br />
+
+      <!-- Country -->
+      <label for="country">Country</label>
+      <input
+        id="country"
+        name="listing[country]"
+        type="text"
+        value="<%= listing.country %>"
+        required
+      />
+      <br /><br />
+
+      <!-- Location -->
+      <label for="location">Location</label>
+      <input
+        id="location"
+        name="listing[location]"
+        type="text"
+        value="<%= listing.location %>"
+        required
+      />
+      <br /><br />
+
+      <!-- Submit -->
+      <button type="submit">Update Item</button>
+    </form>
+  </body>
+</html>

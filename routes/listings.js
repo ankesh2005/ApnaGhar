@@ -22,12 +22,24 @@ router.get("/:id",async(req,res)=>{
   res.render("./listings/show.ejs",{result})
 })
 
-// add listing
+// add listing route
 router.post("/",async(req,res)=>{
   let listing=req.body.listing;
   await new Listing(listing).save();
   res.redirect("/listings");
 })
 
+// edit listing route
+router.get("/:id/edit",async(req,res)=>{
+  const listing=await Listing.findById(req.params.id);
+  res.render("./listings/edit.ejs",{listing})
+})
+
+// update listing route
+router.put("/:id",async(req,res)=>{
+  let {id}=req.params
+  await Listing.findByIdAndUpdate(id,{...req.body.listing})
+  res.redirect(`/listings/${id}`);
+})
 
 export default router

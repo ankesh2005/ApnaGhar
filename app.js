@@ -3,12 +3,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import test from "./tests/test.js";
 import listings from './routes/listings.js'
+import methodOverride from 'method-override'
 
 dotenv.config();
 const app = express();
 app.set("view engine","ejs")
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
+app.use(methodOverride("_method"))
 
 // testing routes
 app.use("/test",test)
