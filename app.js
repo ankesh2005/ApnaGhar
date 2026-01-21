@@ -26,7 +26,8 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-  res.send("<h1>Owned by Ankesh Gupta</h1>");
+  res.redirect("/listings");
+  
 });
 
 main()

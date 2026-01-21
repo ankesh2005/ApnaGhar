@@ -42,4 +42,11 @@ router.put("/:id",async(req,res)=>{
   res.redirect(`/listings/${id}`);
 })
 
+// delete listing
+router.delete("/:id",async(req,res)=>{
+  let {id}=req.params
+  await Listing.findByIdAndDelete(id)
+  res.redirect("/listings")
+})
+
 export default router
