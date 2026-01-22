@@ -4,7 +4,7 @@
  <div class="row">
   <div class="col-8 offset-2">
     <h3 class="edit-listing-info">Edit Listing</h3>
-<form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+<form action="/listings/<%= listing._id %>?_method=PUT" method="post" novalidate class="needs-validation">
   <!-- Title -->
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
@@ -57,6 +57,7 @@
       value="<%= listing.price %>"
       required
     />
+    <div class="invalid-feedback">enter price</div>
   </div>
 
   <!-- Country -->
@@ -70,6 +71,7 @@
       value="<%= listing.country %>"
       required
     />
+    <div class="invalid-feedback">enter country</div>
   </div>
 
   <!-- Location -->
@@ -83,6 +85,7 @@
       value="<%= listing.location %>"
       required
     />
+    <div class="invalid-feedback">enter location</div>
   </div>
 
   <!-- Submit -->
