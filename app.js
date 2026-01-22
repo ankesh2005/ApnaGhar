@@ -1,9 +1,11 @@
-import express, { urlencoded } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import test from "./tests/test.js";
 import listings from './routes/listings.js'
 import methodOverride from 'method-override'
+import ejsMate from "ejs-mate"
+import path from 'path'
 
 dotenv.config();
 const app = express();
@@ -11,6 +13,8 @@ app.set("view engine","ejs")
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 app.use(methodOverride("_method"))
+app.engine('ejs',ejsMate)
+app.use(express.static(path.resolve("public")))
 
 // testing routes
 app.use("/test",test)
