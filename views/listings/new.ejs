@@ -1,76 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ApnaGhar</title>
-  </head>
-  <body>
-    <h1>add new lsiting</h1>
+<% layout("layouts/boilerplate") %>
+<div class="row">
+  <div class="col-8 offset-2">
+    <h2 class="new-listing-info">Add New Listing</h2>
     <form action="/listings" method="post">
       <!-- Title -->
-      <label for="title">Title</label>
-      <input
-        id="title"
-        name="listing[title]"
-        type="text"
-        placeholder="Enter product title"
-        required
-      />
-      <br /><br />
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          id="title"
+          name="listing[title]"
+          type="text"
+          class="form-control"
+          placeholder="Enter Home title"
+          required
+        />
+      </div>
+
       <!-- Description -->
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        name="listing[description]"
-        placeholder="Enter product description"
-        rows="4"
-        required
-      ></textarea>
-      <br /><br />
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          name="listing[description]"
+          placeholder="Enter Home Description"
+          rows="4"
+          class="form-control"
+          required
+        ></textarea>
+      </div>
+
       <!-- Image -->
-      <label for="image">Image URL</label>
-      <input
-        id="image"
-        name="listing[image]"
-        type="url"
-        placeholder="https://example.com/image.jpg"
-      />
-      <br /><br />
-      <!-- Price -->
-      <label for="price">Price ($)</label>
-      <input
-        id="price"
-        name="listing[price]"
-        type="number"
-        placeholder="Enter price"
-        min="0"
-        step="0.01"
-        required
-      />
-      <br /><br />
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input
+          id="image"
+          name="listing[image]"
+          type="url"
+          class="form-control"
+          placeholder="https://example.com/image.jpg"
+        />
+      </div>
+      
+      <div class="row">
+        <!-- Price -->
+      <div class="mb-3 col-md-4">
+        <label for="price" class="form-label">Price (₹)</label>
+        <input
+          id="price"
+          name="listing[price]"
+          type="number"
+          class="form-control"
+          placeholder="Enter price"
+          min="0"
+          step="0.01"
+          required
+        />
+      </div>
+
       <!-- Country -->
-      <label for="country">Country</label>
-      <input
-        id="country"
-        name="listing[country]"
-        type="text"
-        placeholder="Enter country"
-        required
-      />
-      <br /><br />
+      <div class="mb-3 col-md-8">
+        <label for="country" class="form-label">Country</label>
+        <input
+          id="country"
+          name="listing[country]"
+          type="text"
+          class="form-control"
+          placeholder="Enter country"
+          required
+        />
+      </div>
+      </div>
+      
       <!-- Location -->
-      <label for="location">Location</label>
-      <input
-        id="location"
-        name="listing[location]"
-        type="text"
-        placeholder="Enter location"
-        required
-      />
-      <br /><br />
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          id="location"
+          name="listing[location]"
+          type="text"
+          placeholder="Enter location"
+          class="form-control"
+          required
+        />
+      </div>
       <!-- Submit -->
-      <button type="submit">Add Item</button>
+      <button class="btn new-list-btn mb-1" type="submit">Add Item</button>
     </form>
-  </body>
-</html>
+  </div>
+</div>
