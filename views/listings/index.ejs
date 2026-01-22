@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ApnaGhar</title>
-</head>
+<% layout("layouts/boilerplate") %>
 <body>
   <h1>list</h1>
-  <form action="/listings/new" method="get">
-    <button>add new listing</button>
-  </form>
-  <ul>
+  
+
+  <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
     <% for(let list of result){ %>
-      <li><a href="/listings/<%=list._id %>"><%=list.title %></a></li>
+      <div class="card">
+        <img src="<%= list.image %>" class="card-img-top" style="height: 20rem;" alt="...">
+        <div class="card-body">
+          <h6 class="card-title"><%= list.title %></h6>
+          <p class="card-text"><%= "₹"+list.price.toLocaleString("en-IN")+ "/night, "+ list.country %></p>
+          <a href="/listings/<%=list.id%>" class="btn btn-primary">Visit Us</a>
+        </div>
+      </div>
     <%} %>
-  </ul>
+  </div>
+
+ 
 </body>
-</html>
+
 
