@@ -92,3 +92,17 @@ body{
 .edit-listing-info{
   text-align: center;
 }
+
+/* show page */
+.show-img{
+  height: 30vh;
+}
+.btns{
+  display: flex;
+}
+.show-edit-btn{
+  background-color: green;
+}
+.show-delete-btn{
+  background-color: #fe424d;
+}
