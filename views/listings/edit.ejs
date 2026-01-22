@@ -1,79 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ApnaGhar</title>
-  </head>
-  <body>
-    <h1>Edit Listing</h1>
-    <!-- Assuming you pass listing object from backend -->
-    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
-      <!-- Title -->
-      <label for="title">Title</label>
-      <input
-        id="title"
-        name="listing[title]"
-        type="text"
-        value="<%= listing.title %>"
-        required
-      />
-      <br /><br />
+<% layout("layouts/boilerplate") %>
 
-      <!-- Description -->
-      <label for="description">Description</label>
-      <textarea id="description" name="listing[description]" rows="4" required>
-<%= listing.description %></textarea
-      >
-      <br /><br />
+<!-- Assuming you pass listing object from backend -->
+ <div class="row">
+  <div class="col-8 offset-2">
+    <h3 class="edit-listing-info">Edit Listing</h3>
+<form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+  <!-- Title -->
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input
+      id="title"
+      name="listing[title]"
+      type="text"
+      class="form-control"
+      value="<%= listing.title %>"
+      required
+    />
+  </div>
 
-      <!-- Image -->
-      <label for="image">Image URL</label>
-      <input
-        id="image"
-        name="listing[image]"
-        type="url"
-        value="<%= listing.image %>"
-      />
-      <br /><br />
+  <!-- Description -->
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      id="description"
+      class="form-control"
+      name="listing[description]"
+      rows="4"
+      required
+    >
+  <%= listing.description %></textarea
+    >
+  </div>
 
-      <!-- Price -->
-      <label for="price">Price ($)</label>
-      <input
-        id="price"
-        name="listing[price]"
-        type="number"
-        min="0"
-        step="0.01"
-        value="<%= listing.price %>"
-        required
-      />
-      <br /><br />
+  <!-- Image -->
+  <div class="mb-3">
+    <label for="image" class="form-label">Image URL</label>
+    <input
+      id="image"
+      name="listing[image]"
+      type="url"
+      class="form-control"
+      value="<%= listing.image %>"
+    />
+  </div>
 
-      <!-- Country -->
-      <label for="country">Country</label>
-      <input
-        id="country"
-        name="listing[country]"
-        type="text"
-        value="<%= listing.country %>"
-        required
-      />
-      <br /><br />
+  <!-- Price -->
+  <div class="mb-3">
+    <label for="price" class="form-label">Price (₹)</label>
+    <input
+      id="price"
+      name="listing[price]"
+      type="number"
+      class="form-control"
+      min="0"
+      step="0.01"
+      value="<%= listing.price %>"
+      required
+    />
+  </div>
 
-      <!-- Location -->
-      <label for="location">Location</label>
-      <input
-        id="location"
-        name="listing[location]"
-        type="text"
-        value="<%= listing.location %>"
-        required
-      />
-      <br /><br />
+  <!-- Country -->
+  <div class="mb-3">
+    <label for="country" class="form-label">Country</label>
+    <input
+      id="country"
+      name="listing[country]"
+      class="form-control"
+      type="text"
+      value="<%= listing.country %>"
+      required
+    />
+  </div>
 
-      <!-- Submit -->
-      <button type="submit">Update Item</button>
-    </form>
-  </body>
-</html>
+  <!-- Location -->
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <input
+      id="location"
+      class="form-control"
+      name="listing[location]"
+      type="text"
+      value="<%= listing.location %>"
+      required
+    />
+  </div>
+
+  <!-- Submit -->
+  <button type="submit" class="edit-list-btn btn mb-1">Update Item</button>
+</form>
+</div>
+</div>
