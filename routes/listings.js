@@ -2,7 +2,7 @@ import express ,{response, Router} from 'express'
 import { Listing } from '../models/listing.models.js'
 import wrapAsync from '../utils/wrapAsync.js';
 import ExpressError from '../utils/ExpressError.js';
-
+import { listingSchema } from '../schema.js';
 
 const router=express.Router()
 
@@ -26,9 +26,12 @@ router.get("/:id",wrapAsync(async(req,res)=>{
 
 // add listing route
 router.post("/",wrapAsync(async(req,res,next)=>{
-  if(!req.body.listing){
-    throw new ExpressError(400,"send valid data for listing")
+
+  let result=listingSchema.validate(req.body);
+  if(result.error){
+     throw new ExpressError(400,result.error)
   }
+   
   let listing=req.body.listing;
   await new Listing(listing).save();
   res.redirect("/listings");
