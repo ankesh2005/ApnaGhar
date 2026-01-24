@@ -6,6 +6,17 @@ import { listingSchema } from '../schema.js';
 
 const router=express.Router()
 
+// validate listing middleware
+const validateListing=(req,res,next)=>{
+  let result=listingSchema.validate(req.body);
+  if(result.error){
+    let errMsg=result.error.details.map((el)=>el.message).join(",")
+    throw new ExpressError(400,errMsg)
+  }else{
+    next()
+  }
+}
+
 // index route
 router.get("/",wrapAsync(async(req,res)=>{
   const result=await Listing.find({});
@@ -25,15 +36,10 @@ router.get("/:id",wrapAsync(async(req,res)=>{
 }))
 
 // add listing route
-router.post("/",wrapAsync(async(req,res,next)=>{
-
-  let result=listingSchema.validate(req.body);
-  if(result.error){
-     throw new ExpressError(400,result.error)
-  }
-   
+router.post("/",validateListing,wrapAsync(async(req,res,next)=>{
   let listing=req.body.listing;
   await new Listing(listing).save();
+  console.log("listing",listing)
   res.redirect("/listings");
 }))
 
@@ -44,7 +50,7 @@ router.get("/:id/edit",wrapAsync(async(req,res)=>{
 }))
 
 // update listing route
-router.put("/:id",wrapAsync(async(req,res)=>{
+router.put("/:id",validateListing,wrapAsync(async(req,res)=>{
   let {id}=req.params
   await Listing.findByIdAndUpdate(id,{...req.body.listing})
   res.redirect(`/listings/${id}`);
