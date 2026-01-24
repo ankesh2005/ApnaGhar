@@ -1,52 +1,59 @@
 import express ,{response, Router} from 'express'
 import { Listing } from '../models/listing.models.js'
+import wrapAsync from '../utils/wrapAsync.js';
+import ExpressError from '../utils/ExpressError.js';
 
 
 const router=express.Router()
 
 // index route
-router.get("/",async (req,res)=>{
+router.get("/",wrapAsync(async(req,res)=>{
   const result=await Listing.find({});
   res.render("./listings/index.ejs",{result})
-})
+}))
 
 // new list route
-router.get("/new",async(req,res)=>{
+router.get("/new",wrapAsync(async(req,res)=>{
   res.render("./listings/new.ejs")
-})
+}))
 
 // show route
-router.get("/:id",async(req,res)=>{
+router.get("/:id",wrapAsync(async(req,res)=>{
   let {id}=req.params
   const result=await Listing.findById(id)
   res.render("./listings/show.ejs",{result})
-})
+}))
 
 // add listing route
-router.post("/",async(req,res)=>{
+router.post("/",wrapAsync(async(req,res,next)=>{
+  if(!req.body.listing){
+    throw new ExpressError(400,"send valid data for listing")
+  }
   let listing=req.body.listing;
   await new Listing(listing).save();
   res.redirect("/listings");
-})
+}))
 
 // edit listing route
-router.get("/:id/edit",async(req,res)=>{
+router.get("/:id/edit",wrapAsync(async(req,res)=>{
   const listing=await Listing.findById(req.params.id);
   res.render("./listings/edit.ejs",{listing})
-})
+}))
 
 // update listing route
-router.put("/:id",async(req,res)=>{
+router.put("/:id",wrapAsync(async(req,res)=>{
   let {id}=req.params
   await Listing.findByIdAndUpdate(id,{...req.body.listing})
   res.redirect(`/listings/${id}`);
-})
+}))
 
 // delete listing
-router.delete("/:id",async(req,res)=>{
+router.delete("/:id",wrapAsync(async(req,res)=>{
   let {id}=req.params
   await Listing.findByIdAndDelete(id)
   res.redirect("/listings")
-})
+}))
+
+ 
 
 export default router

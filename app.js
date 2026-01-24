@@ -2,26 +2,27 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import test from "./tests/test.js";
-import listings from './routes/listings.js'
-import methodOverride from 'method-override'
-import ejsMate from "ejs-mate"
-import path from 'path'
+import listings from "./routes/listings.js";
+import methodOverride from "method-override";
+import ejsMate from "ejs-mate";
+import path from "path";
+import ExpressError from "./utils/ExpressError.js";
 
 dotenv.config();
 const app = express();
-app.set("view engine","ejs")
-app.use(express.urlencoded({extended:true}))
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride("_method"))
-app.engine('ejs',ejsMate)
-app.use(express.static(path.resolve("public")))
+app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.resolve("public")));
 
 // testing routes
-app.use("/test",test)
-
+app.use("/test", test);
 
 // Listing routes
-app.use("/listings",listings)
+app.use("/listings", listings);
+
 
 
 
@@ -31,8 +32,19 @@ async function main() {
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
-  
 });
+
+app.use((req, res, next) => {
+  next(new ExpressError(404, "Page not found"));
+});
+
+
+// Catch-all for wrong/non-existent paths
+app.use((err, req, res, next) => {
+  let {statusCode=500,message="something went wrong"}=err;
+  res.status(statusCode).send(message);
+});
+
 
 main()
   .then(() => {
@@ -43,7 +55,5 @@ main()
     });
   })
   .catch((err) => {
-    console.log("not connected to mongodb",err);
+    console.log("not connected to mongodb", err);
   });
-
-
