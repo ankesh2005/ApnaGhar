@@ -3,6 +3,7 @@ import { Listing } from '../models/listing.models.js'
 import wrapAsync from '../utils/wrapAsync.js';
 import ExpressError from '../utils/ExpressError.js';
 import { listingSchema } from '../schema.js';
+import { Review } from '../models/review.models.js';
 
 const router=express.Router()
 
@@ -62,6 +63,15 @@ router.delete("/:id",wrapAsync(async(req,res)=>{
   res.redirect("/listings")
 }))
 
- 
+//post reviews
+router.post("/:id/reviews",async(req,res)=>{
+  let id=req.params.id
+  let listing=await Listing.findById(id)
+  let newReview= new Review(req.body.review)
+  listing.reviews.push(newReview);
+  await newReview.save();
+  await listing.save();
+  res.redirect(`/listings/${id}`)
+})
 
 export default router
