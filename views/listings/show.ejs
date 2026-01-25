@@ -4,33 +4,33 @@
   <div class="col-8 offset-3">
     <h3>Listing details</h3>
   </div>
-  <div class="card col-6 offset-3">
-    <img src="<%= result.image%>" class="card-img-top show-img" alt="..." />
+  <div class="listing-card col-6 offset-3">
+    <img src="<%= listing.image%>" class="card-img-top show-img" alt="..." />
     <div class="card-body">
       <p class="card-text">
-        <b><%=result.title%></b><br />
-        <%=result.description%><br />
-        ₹<%=result.price.toLocaleString("en-IN")%> <br />
-        <%=result.location%> <br />
-        <%= result.country %>
+        <b><%=listing.title%></b><br />
+        <%=listing.description%><br />
+        ₹<%=listing.price.toLocaleString("en-IN")%> <br />
+        <%=listing.location%> <br />
+        <%= listing.country %>
       </p>
     </div>
   </div>
   <br />
   <div class="btns">
     <a
-      href="/listings/<%=result._id%>/edit"
+      href="/listings/<%=listing._id%>/edit"
       class="btn btn-dark col-1 offset-3 show-edit-btn"
       >Edit</a
     >
 
-    <form action="/listings/<%=result._id%>?_method=delete" method="post">
+    <form action="/listings/<%=listing._id%>?_method=delete" method="post">
       <button class="btn btn-dark offset-5 show-delete-btn">Delete</button>
     </form>
   </div>
 
   <%- include("./addReview.ejs") %>
 
-  
-
+  <%- include("./showReviews.ejs") %>
+ 
 </div>

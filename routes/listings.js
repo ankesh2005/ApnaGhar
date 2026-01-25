@@ -33,8 +33,8 @@ router.get("/new",wrapAsync(async(req,res)=>{
 // show route
 router.get("/:id",wrapAsync(async(req,res)=>{
   let {id}=req.params
-  const result=await Listing.findById(id)
-  res.render("./listings/show.ejs",{result})
+  const listing=await Listing.findById(id).populate("reviews")
+  res.render("./listings/show.ejs",{listing})
 }))
 
 // add listing route
@@ -85,5 +85,14 @@ router.post("/:id/reviews",validateReview,wrapAsync(async(req,res)=>{
   await listing.save();
   res.redirect(`/listings/${id}`)
 }))
+
+// delete reviews
+router.delete("/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+  let {id,reviewId}=req.params
+  await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}}) 
+  await Review.findByIdAndDelete(reviewId)
+  res.redirect(`/listings/${id}`)
+}))
+
 
 export default router
