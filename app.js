@@ -7,6 +7,7 @@ import methodOverride from "method-override";
 import ejsMate from "ejs-mate";
 import path from "path";
 import ExpressError from "./utils/ExpressError.js";
+import reviews from "./routes/review.js"
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,9 @@ app.use("/test", test);
 
 // Listing routes
 app.use("/listings", listings);
+
+// review listing
+app.use("/listings/:id/reviews",reviews)
 
 
 
