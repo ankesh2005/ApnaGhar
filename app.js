@@ -8,6 +8,8 @@ import ejsMate from "ejs-mate";
 import path from "path";
 import ExpressError from "./utils/ExpressError.js";
 import reviews from "./routes/review.js"
+import session from 'express-session'
+import flash from 'connect-flash'
 
 dotenv.config();
 const app = express();
@@ -18,6 +20,20 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.resolve("public")));
 
+const sessionOptions={
+  secret:process.env.SECRET_KEY,
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+    expires:Date.now()+1000*60*60*24*3,
+    maxAge:1000*60*60*24*3,
+    httpOnly:true
+  }
+}
+
+app.use(session(sessionOptions))
+app.use(flash())
+
 // testing routes
 app.use("/test", test);
 
@@ -26,6 +42,7 @@ app.use("/listings", listings);
 
 // review listing
 app.use("/listings/:id/reviews",reviews)
+
 
 
 
