@@ -10,6 +10,10 @@ import ExpressError from "./utils/ExpressError.js";
 import reviews from "./routes/review.js"
 import session from 'express-session'
 import flash from 'connect-flash'
+import passport from "passport";
+import LocalStrategy from "passport-local"
+import { User } from "./models/user.models.js";
+import user from "./routes/user.js"
 
 dotenv.config();
 const app = express();
@@ -33,6 +37,11 @@ const sessionOptions={
 
 app.use(session(sessionOptions))
 app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.use((req,res,next)=>{
   res.locals.success=req.flash("success")
@@ -46,11 +55,11 @@ app.use("/test", test);
 // Listing routes
 app.use("/listings", listings);
 
-// review listing
+// review routes
 app.use("/listings/:id/reviews",reviews)
 
-
-
+// user routes
+app.use("/",user)  
 
 
 async function main() {
