@@ -12,7 +12,7 @@ router.get("/demouser",async (req,res)=>{
 })
 
 router.get("/signup",(req,res)=>{
-  res.send("hello")
+  res.render("./users/signup.ejs")
 })
 
 export default router
