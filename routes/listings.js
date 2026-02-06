@@ -3,7 +3,7 @@ import { Listing } from '../models/listing.models.js'
 import wrapAsync from '../utils/wrapAsync.js';
 import ExpressError from '../utils/ExpressError.js';
 import { listingSchema} from '../schema.js';
-
+import { isLoggedIn } from '../middlewares.js';
 
 const router=express.Router()
 
@@ -25,7 +25,7 @@ router.get("/",wrapAsync(async(req,res)=>{
 }))
 
 // new list route
-router.get("/new",wrapAsync(async(req,res)=>{
+router.get("/new",isLoggedIn,wrapAsync(async(req,res)=>{
   res.render("./listings/new.ejs")
 }))
 
@@ -41,7 +41,7 @@ router.get("/:id",wrapAsync(async(req,res)=>{
 }))
 
 // add listing route
-router.post("/",validateListing,wrapAsync(async(req,res,next)=>{
+router.post("/",validateListing,isLoggedIn,wrapAsync(async(req,res,next)=>{
   let listing=req.body.listing;
   await new Listing(listing).save();
   req.flash("success","New Listing Created")
@@ -49,7 +49,7 @@ router.post("/",validateListing,wrapAsync(async(req,res,next)=>{
 }))
 
 // edit listing route
-router.get("/:id/edit",wrapAsync(async(req,res)=>{
+router.get("/:id/edit",isLoggedIn,wrapAsync(async(req,res)=>{
   const listing=await Listing.findById(req.params.id);
   if(!listing){
     req.flash("error","listing you requested for does not exist");
@@ -59,7 +59,7 @@ router.get("/:id/edit",wrapAsync(async(req,res)=>{
 }))
 
 // update listing route
-router.put("/:id",validateListing,wrapAsync(async(req,res)=>{
+router.put("/:id",isLoggedIn,validateListing,wrapAsync(async(req,res)=>{
   let {id}=req.params
   await Listing.findByIdAndUpdate(id,{...req.body.listing})
   req.flash("success","listing details updated")
@@ -67,7 +67,7 @@ router.put("/:id",validateListing,wrapAsync(async(req,res)=>{
 }))
 
 // delete listing
-router.delete("/:id",wrapAsync(async(req,res)=>{
+router.delete("/:id",isLoggedIn,wrapAsync(async(req,res)=>{
   let {id}=req.params
   await Listing.findByIdAndDelete(id)
   req.flash("success","listing deleted!")
