@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import test from "./tests/test.js";
-import listings from "./routes/listings.js";
+import listings from "./routes/listing.js";
 import methodOverride from "method-override";
 import ejsMate from "ejs-mate";
 import path from "path";

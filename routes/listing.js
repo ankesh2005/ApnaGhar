@@ -1,5 +1,4 @@
-import express ,{response, Router} from 'express'
-import { Listing } from '../models/listing.models.js'
+import express  from 'express'
 import wrapAsync from '../utils/wrapAsync.js';
 import { isLoggedIn, isOwner,validateListing } from '../middlewares.js';
 import { index, renderEditForm, renderNewForm, showListing,createListing, updateListing, destroyListing } from '../controllers/listings.js';
