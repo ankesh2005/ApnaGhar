@@ -2,6 +2,7 @@ import { Listing } from "./models/listing.models.js";
 import ExpressError from "./utils/ExpressError.js";
 import { listingSchema } from "./schema.js";
 import { reviewSchema } from './schema.js';
+import { Review } from "./models/review.models.js";
 
 export const isLoggedIn=(req,res,next)=>{
   if(!req.isAuthenticated()){
@@ -24,6 +25,15 @@ export const isOwner=async (req,res,next)=>{
   let listing=await Listing.findById(id)
     if( !listing.owner._id.equals(res.locals.currUser._id)){
       req.flash("error","you dont have permission to edit")
+      return res.redirect(`/listings/${id}`)
+    }
+    next()
+}
+export const isReviewAuthor=async (req,res,next)=>{
+  let {id,reviewId}=req.params
+  let review=await Review.findById(reviewId)
+    if( !review.author._id.equals(res.locals.currUser._id)){
+      req.flash("error","you dont have permission to delete")
       return res.redirect(`/listings/${id}`)
     }
     next()

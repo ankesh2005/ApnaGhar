@@ -31,7 +31,9 @@
   </div>
   <%}%>
 
-  <%- include("./addReview.ejs") %>
+  <% if(currUser) { %>
+    <%- include("./addReview.ejs") %>
+  <%}%>
 
   <%- include("./showReviews.ejs") %>
  
