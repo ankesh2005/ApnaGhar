@@ -1,47 +1,51 @@
+<div class="col-8 offset-2 mb-4">
+  <hr />
+  <h4 class="text-center mb-4">💬 Leave a Review</h4>
+  <form
+    method="post"
+    action="/listings/<%= listing.id%>/reviews"
+    novalidate
+    class="needs-validation"
+  >
+    <!-- Rating Section -->
+    <div class="mb-4">
+  <label for="rating" class="form-label fw-bold">Rating</label>
+  <fieldset class="starability-slot">
+    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked>
+    <input type="radio" id="rate1" name="review[rating]" value="1" />
+    <label for="rate1" title="Terrible">1 star</label>
+    <input type="radio" id="rate2" name="review[rating]" value="2" />
+    <label for="rate2" title="Not good">2 stars</label>
+    <input type="radio" id="rate3" name="review[rating]" value="3" />
+    <label for="rate3" title="Average">3 stars</label>
+    <input type="radio" id="rate4" name="review[rating]" value="4" />
+    <label for="rate4" title="Very good">4 stars</label>
+    <input type="radio" id="rate5" name="review[rating]" value="5" />
+    <label for="rate5" title="Amazing">5 stars</label>
+  </fieldset>
+</div>
 
-  <div class="col-8 offset-2 mb-4">
-    <hr />
-    <h4 class="text-center mb-4">💬 Leave a Review</h4>
-    <form method="post" action="/listings/<%= listing.id%>/reviews" novalidate class="needs-validation">
-      <!-- Rating Section -->
-      <div class="mb-4">
-        <label for="rating" class="form-label fw-bold">Rating</label>
-        <input
-          type="range"
-          class="form-range"
-          min="1"
-          max="5"
-          id="rating"
-          name="review[rating]"
-          required
-        />
-        <div class="d-flex justify-content-between small text-muted">
-          <span>1 ⭐ Poor</span>
-          <span>5 ⭐ Excellent</span>
-        </div>
-      </div>
+    <!-- Comment Section -->
+    <div class="mb-4">
+      <label for="comment" class="form-label fw-bold">Comments</label>
+      <textarea
+        class="form-control shadow-sm"
+        name="review[comment]"
+        id="comment"
+        cols="30"
+        rows="5"
+        placeholder="Share your experience..."
+        required
+      ></textarea>
+      <small class="text-muted">Your feedback helps us improve!</small>
+      <div class="invalid-feedback">Please submit some comment</div>
+    </div>
 
-      <!-- Comment Section -->
-      <div class="mb-4">
-        <label for="comment" class="form-label fw-bold">Comments</label>
-        <textarea
-          class="form-control shadow-sm"
-          name="review[comment]"
-          id="comment"
-          cols="30"
-          rows="5"
-          placeholder="Share your experience..."
-          required
-        ></textarea>
-        <small class="text-muted">Your feedback helps us improve!</small>
-        <div class="invalid-feedback">Please submit some comment</div>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="text-center">
-        <button type="submit" class="btn btn-dark px-4 py-2">
-          <i class="bi bi-send"></i> Submit Review
-        </button>
-      </div>
-    </form>
-  </div>
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-dark px-4 py-2">
+        <i class="bi bi-send"></i> Submit Review
+      </button>
+    </div>
+  </form>
+</div>
