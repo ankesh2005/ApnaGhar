@@ -1,5 +1,7 @@
 import express from "express";
+import multer from "multer";
 import wrapAsync from "../utils/wrapAsync.js";
+import { storage } from "../cloudConfig.js";
 import { isLoggedIn, isOwner, validateListing } from "../middlewares.js";
 import {
   index,
@@ -10,17 +12,19 @@ import {
   updateListing,
   destroyListing,
 } from "../controllers/listings.js";
+
+const upload=multer({storage})
+
 const router = express.Router();
 
-
-
 router
-.route("/")
-// index route
-.get(wrapAsync(index))
-// new listing route
-.post(validateListing, isLoggedIn, wrapAsync(createListing));
- 
+  .route("/")
+  // index route
+  .get(wrapAsync(index))
+  // new listing route
+  .post( isLoggedIn, upload.single('listing[image]'),  wrapAsync(createListing));
+
+
 // new list route
 router.get("/new", isLoggedIn, wrapAsync(renderNewForm));
 
