@@ -1,6 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import test from "./tests/test.js";
 import listings from "./routes/listing.js";
 import methodOverride from "method-override";
@@ -15,7 +16,6 @@ import LocalStrategy from "passport-local"
 import { User } from "./models/user.models.js";
 import user from "./routes/user.js"
 
-dotenv.config();
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +23,8 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.resolve("public")));
+
+
 
 const sessionOptions={
   secret:process.env.SECRET_KEY,
