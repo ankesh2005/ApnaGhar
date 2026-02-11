@@ -33,7 +33,7 @@ router
   // show route
   .get(wrapAsync(showListing))
   // update listing
-  .put(isLoggedIn, isOwner, validateListing, wrapAsync(updateListing))
+  .put(isLoggedIn, isOwner, upload.single('listing[image]'),validateListing, wrapAsync(updateListing))
   // delete listing
   .delete(isLoggedIn, isOwner, wrapAsync(destroyListing));
 

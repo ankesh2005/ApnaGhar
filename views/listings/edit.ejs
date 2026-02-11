@@ -4,7 +4,7 @@
  <div class="row">
   <div class="col-8 offset-2">
     <h3 class="edit-listing-info">Edit Listing</h3>
-<form action="/listings/<%= listing._id %>?_method=PUT" method="post" novalidate class="needs-validation">
+<form action="/listings/<%= listing._id %>?_method=PUT" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
   <!-- Title -->
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
@@ -32,15 +32,19 @@
     >
   </div>
 
+  <div class="mb-3">
+    <p>Original Listing image</p>
+    <img src="<%= originalImageUrl%>" alt="no_image">
+  </div>
+
   <!-- Image -->
   <div class="mb-3">
-    <label for="image" class="form-label">Image URL</label>
+    <label for="image" class="form-label">Upload new image</label>
     <input
       id="image"
       name="listing[image]"
-      type="url"
+      type="file"
       class="form-control"
-      value="<%= listing.image %>"
     />
   </div>
 
