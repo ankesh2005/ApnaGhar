@@ -1,4 +1,5 @@
-<div class="col-6 offset-3">
+<% if(listing.reviews.length!=0){%>
+  <div class="col-6 offset-3">
   <p><b>All Reviews</b></p>
   <div class="row">
     <% for(let review of listing.reviews){ %>
@@ -15,3 +16,4 @@
     <%}%>
   </div>
 </div>
+<%}%>

@@ -1,7 +1,64 @@
 <% layout("layouts/boilerplate") %>
 
-  <h1>All listing</h1>
-  <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+<style>
+  .filters{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .filter{
+    text-align: center;
+    opacity: .7;
+    margin-right: 2rem;
+    margin-top: 2rem;
+  }
+  .filter:hover{
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter p{
+    font-size: .9rem;
+  }
+</style>
+  <div class="filters ">
+    <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>trending</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>iconics city</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <p>mountain</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>pools</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>castles</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>room</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>camping</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-cow"></i></div>
+      <p>farms</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </div>
+  </div>
+  
+  <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
     <% for(let list of result){ %>
       <div class="listing-card">
         <img src="<%= list.image.url %>" class="card-img-top" style="height: 20rem;" alt="...">

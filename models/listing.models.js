@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import { Review } from "./review.models.js";
 
+
+
 const listingSchema = new mongoose.Schema(
   {
     title: {
@@ -43,6 +45,11 @@ const listingSchema = new mongoose.Schema(
       required: true,
     },
   },
+  categories:{
+    type:[String],
+    enum:["mountains","pool","beach","rooms","camping","river","deserts","castles","farms","iconics_city","arctic"],
+    default:[]
+  }
   },
   { timestamps: true }
 );
