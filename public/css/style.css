@@ -109,3 +109,51 @@ body{
 
 /* map */
 #map { height: 60vh; }
+
+/* categories selection */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filter-option {
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.filter-option input {
+  display: none;
+}
+
+.filter-option i {
+  font-size: 22px;
+}
+
+.filter-option input:checked + div,
+.filter-option input:checked + div + p {
+  color: #fe424d;
+}
+
+.filter-option:hover {
+  background-color: #f8f8f8;
+}
+
+/* search filter */
+ .filter-search{
+    text-align: center;
+    opacity: .7;
+    margin-right: 2rem;
+    margin-top: 2rem;
+  }
+  .filter-search:hover{
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter-search p{
+    font-size: .9rem;
+  } 
