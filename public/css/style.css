@@ -106,3 +106,6 @@ body{
 .show-delete-btn{
   background-color: #fe424d;
 }
+
+/* map */
+#map { height: 180px; }
