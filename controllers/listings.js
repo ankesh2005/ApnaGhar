@@ -1,16 +1,27 @@
 import { Listing } from "../models/listing.models.js";
 
 export const index = async (req, res) => {
-  const {category}=req.query;
-  let result;
-  if(category){
-    result=await Listing.find({
-      categories:category
-    })
-  }else{
-  result = await Listing.find({});
-}
-res.render("./listings/index.ejs", { result,category });
+
+  const { category, search } = req.query;
+
+  let filter = {};
+
+  //  Category filter
+  if (category) {
+    filter.categories = category;
+  }
+  //  Search filter
+  if (search) {
+    filter.$or = [
+      { country: { $regex: search, $options: "i" } },
+      { location: { $regex: search, $options: "i" } },
+      { title: { $regex: search, $options: "i" } }
+    ];
+  }
+
+  const result = await Listing.find(filter);
+  
+res.render("./listings/index.ejs", { result,category,search });
 };
 
 export const renderNewForm = async (req, res) => {

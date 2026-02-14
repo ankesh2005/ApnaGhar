@@ -163,3 +163,27 @@ body{
     color: #fe424d;
   border-bottom: 2px solid #fe424d;
   }
+
+  /* search box */
+  .search-btn{
+    background-color: #fe424d;
+    color: white;
+    border-radius: 20px;
+    padding: 0 1rem;
+  }
+  
+  .search-btn:hover{
+    background-color: #fe424d;
+    color: white;
+  }
+  
+  .search-btn i{
+    display: inline;
+    margin-right: .5rem;
+  }
+
+  .search-input{
+    border-radius: 20px;
+    padding: .5rem 3rem;
+    font-size: .9rem;
+  }
