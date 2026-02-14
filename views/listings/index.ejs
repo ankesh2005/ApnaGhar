@@ -4,6 +4,13 @@
 <%- include("./searchFilter.ejs") %>
 
   <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
+    <!-- no listing found -->
+    <% if(result.length === 0) { %>
+  <div class="no-results text-center mt-5 col-6 offset-4">
+    <h4>No listings found for this category.</h4>
+    <a href="/listings" class="btn btn-dark mt-2">View All Listings</a>
+  </div>
+<% } %>
     <% for(let list of result){ %>
       <div class="listing-card">
         <img src="<%= list.image.url %>" class="card-img-top" style="height: 20rem;" alt="...">
