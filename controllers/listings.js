@@ -1,8 +1,16 @@
 import { Listing } from "../models/listing.models.js";
 
 export const index = async (req, res) => {
-  const result = await Listing.find({});
-  res.render("./listings/index.ejs", { result });
+  const {category}=req.query;
+  let result;
+  if(category){
+    result=await Listing.find({
+      categories:category
+    })
+  }else{
+  result = await Listing.find({});
+}
+res.render("./listings/index.ejs", { result,category });
 };
 
 export const renderNewForm = async (req, res) => {
@@ -47,6 +55,14 @@ export const createListing = async (req, res, next) => {
   let filename = req.file.filename;
 
   let newListing = req.body.listing;
+
+  // categories ko array bnaya
+  if (!newListing.categories) {
+    newListing.categories = [];
+  } else if (!Array.isArray(newListing.categories)) {
+    newListing.categories = [newListing.categories];
+  }
+  
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
   newListing.geometry=geoData;

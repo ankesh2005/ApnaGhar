@@ -146,6 +146,8 @@ body{
 /* search filter */
  .filter-search{
     text-align: center;
+    text-decoration: none;
+    color: gray;
     opacity: .7;
     margin-right: 2rem;
     margin-top: 2rem;
@@ -157,3 +159,7 @@ body{
   .filter-search p{
     font-size: .9rem;
   } 
+  .filter-search.active{
+    color: #fe424d;
+  border-bottom: 2px solid #fe424d;
+  }
