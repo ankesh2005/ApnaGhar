@@ -114,8 +114,17 @@ body{
 
 .filters {
   display: flex;
-  flex-wrap: wrap;
   gap: 20px;
+
+  overflow-x: auto;        /* allow horizontal scroll */
+  white-space: nowrap;     /* prevent wrapping */
+  padding-bottom: 10px;
+  scrollbar-width: none;   /* hide scrollbar (Firefox) */
+  min-width: 60%;
+}
+
+.filters::-webkit-scrollbar {
+  display: none;           /* hide scrollbar (Chrome) */
 }
 
 .filter-option {
@@ -143,7 +152,45 @@ body{
   background-color: #f8f8f8;
 }
 
+/* filter-container */
+.filter-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* tax-toggle */
+/* .tax-toggle .filter-search{
+  opacity: 1;
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3rem;
+  padding: 1rem 2rem;
+}
+  */
+.tax-toggle {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  background: #fff;
+  white-space: nowrap;   /* keeps text in one line */
+}
+.tax-b{
+  border: 1px solid #ddd;
+  max-width: 200px;
+  display: inline-block;
+  border-radius: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  opacity: .8;
+}
+
+#tax-info{
+  display: none;
+}
+
 /* search filter */
+
  .filter-search{
     text-align: center;
     text-decoration: none;
@@ -163,6 +210,7 @@ body{
     color: #fe424d;
   border-bottom: 2px solid #fe424d;
   }
+
 
   /* search box */
   .search-btn{
@@ -187,3 +235,30 @@ body{
     padding: .5rem 3rem;
     font-size: .9rem;
   }
+
+  @media (max-width: 768px) {
+
+  .filter-container {
+    flex-direction: column;   /* stack items vertically */
+    align-items: stretch;
+  }
+
+  .filters {
+    width: 100%;
+    min-width: 100%;          /* override desktop min-width */
+  }
+
+  .tax-toggle {
+    margin-top: 10px;
+    align-self: flex-start;   /* or center if you prefer */
+  }
+
+}
+@media (max-width: 991px) {
+
+  .navbar-collapse {
+    background-color: white;   /*  add background */
+    padding: 1rem;
+  }
+
+}

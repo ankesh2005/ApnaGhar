@@ -29,7 +29,11 @@ export const renderLoginForm= async (req, res) => {
 
 export const login = async (req, res) => {
   req.flash("success", "welcome back to ApnaGhar! You are Logged in!");
-  res.redirect(res.locals.redirectUrl || "/listings");
+   const redirectUrl = res.locals.redirectUrl || "/listings";
+
+  delete req.session.redirectUrl; 
+
+  res.redirect(redirectUrl);
 };
 
 export const logout=(req, res, next) => {

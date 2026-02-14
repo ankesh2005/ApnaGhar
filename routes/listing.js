@@ -42,23 +42,3 @@ router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(renderEditForm));
 
 export default router;
 
-// index route
-// router.get("/",wrapAsync(index))
-
-// add listing route
-// router.post("/",validateListing,isLoggedIn,wrapAsync(createListing))
-
-// show route
-// router.get("/:id", wrapAsync(showListing));
-
-// update listing route
-// router.put(
-//   "/:id",
-//   isLoggedIn,
-//   isOwner,
-//   validateListing,
-//   wrapAsync(updateListing),
-// );
-
-// // delete listing
-// router.delete("/:id", isLoggedIn, isOwner, wrapAsync(destroyListing));
