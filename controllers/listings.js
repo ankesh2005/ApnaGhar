@@ -28,12 +28,29 @@ export const showListing = async (req, res) => {
 };
 
 export const createListing = async (req, res, next) => {
+
+  let mapToken=process.env.MAP_TOKEN;
+  let location=req.body.listing.location;
+  const response=await fetch(`https://us1.locationiq.com/v1/search.php?key=${mapToken}&q=${location}&format=json&limit=1`)
+  const data = await response.json();
+  if (!data.length) {
+      req.flash("error", "Invalid location entered");
+      return res.redirect("/listings/new");
+    }
+  const { lat, lon } = data[0];
+  const geoData = {
+      type: "Point",
+      coordinates: [parseFloat(lon), parseFloat(lat)], // [lng, lat]
+    };
+
   let url = req.file.path;
   let filename = req.file.filename;
 
   let newListing = req.body.listing;
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
+  newListing.geometry=geoData;
+
   await new Listing(newListing).save();
   req.flash("success", "New Listing Created");
   return res.redirect("/listings");
