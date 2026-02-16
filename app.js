@@ -65,9 +65,6 @@ app.use((req,res,next)=>{
   next()
 })
 
-// testing routes
-app.use("/test", test);
-
 // Listing routes
 app.use("/listings", listings);
 
