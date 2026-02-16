@@ -1,9 +1,11 @@
 import { Listing } from "../models/listing.models.js";
+import cloudinary from "../cloudConfig.js";
+import streamifier from "streamifier";
+
+
 
 export const index = async (req, res) => {
-
   const { category, search } = req.query;
-
   let filter = {};
 
   //  Category filter
@@ -24,9 +26,13 @@ export const index = async (req, res) => {
 res.render("./listings/index.ejs", { result,category,search });
 };
 
+
+
 export const renderNewForm = async (req, res) => {
   res.render("./listings/new.ejs");
 };
+
+
 
 export const showListing = async (req, res) => {
   let { id } = req.params;
@@ -46,6 +52,9 @@ export const showListing = async (req, res) => {
   res.render("./listings/show.ejs", { listing });
 };
 
+
+
+
 export const createListing = async (req, res, next) => {
 
   let mapToken=process.env.MAP_TOKEN;
@@ -62,8 +71,30 @@ export const createListing = async (req, res, next) => {
       coordinates: [parseFloat(lon), parseFloat(lat)], // [lng, lat]
     };
 
-  let url = req.file.path;
-  let filename = req.file.filename;
+  // let url = req.file.path;
+  // let filename = req.file.filename;
+  let imageData = {};
+
+if (req.file) {
+  const result = await new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "ApnaGhar_Dev",
+      },
+      (error, result) => {
+        if (result) resolve(result);
+        else reject(error);
+      }
+    );
+
+    streamifier.createReadStream(req.file.buffer).pipe(stream);
+  });
+
+  imageData = {
+    url: result.secure_url,
+    filename: result.public_id,
+  };
+}
 
   let newListing = req.body.listing;
 
@@ -75,7 +106,8 @@ export const createListing = async (req, res, next) => {
   }
   
   newListing.owner = req.user._id;
-  newListing.image = { url, filename };
+  // newListing.image = { url, filename };
+  newListing.image = imageData;
   newListing.geometry=geoData;
 
   await new Listing(newListing).save();
@@ -98,12 +130,40 @@ export const updateListing = async (req, res) => {
   let { id } = req.params;
 
   let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  if (req.file ) {
-    let url = req.file.path;
-    let filename = req.file.filename;
-    listing.image = { filename, url };
-    await listing.save();
+
+  // if (req.file ) {
+  //   let url = req.file.path;
+  //   let filename = req.file.filename;
+  //   listing.image = { filename, url };
+  //   await listing.save();
+  // }
+  if (req.file) {
+  // Delete old image from Cloudinary
+  if (listing.image?.filename) {
+    await cloudinary.uploader.destroy(listing.image.filename);
   }
+
+  const result = await new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "ApnaGhar_Dev",
+      },
+      (error, result) => {
+        if (result) resolve(result);
+        else reject(error);
+      }
+    );
+
+    streamifier.createReadStream(req.file.buffer).pipe(stream);
+  });
+
+  listing.image = {
+    url: result.secure_url,
+    filename: result.public_id,
+  };
+
+  await listing.save();
+}
 
   req.flash("success", "listing details updated");
   return res.redirect(`/listings/${id}`);

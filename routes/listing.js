@@ -1,7 +1,6 @@
 import express from "express";
 import multer from "multer";
 import wrapAsync from "../utils/wrapAsync.js";
-import { storage } from "../cloudConfig.js";
 import { isLoggedIn, isOwner, validateListing } from "../middlewares.js";
 import {
   index,
@@ -13,7 +12,11 @@ import {
   destroyListing,
 } from "../controllers/listings.js";
 
-const upload=multer({storage})
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
 
 const router = express.Router();
 
