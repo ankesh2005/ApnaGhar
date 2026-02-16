@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
-import test from "./tests/test.js";
 import listings from "./routes/listing.js";
 import methodOverride from "method-override";
 import ejsMate from "ejs-mate";
