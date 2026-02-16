@@ -38,7 +38,8 @@ router
   .delete(isLoggedIn, isOwner, wrapAsync(destroyListing));
 
 // edit listing route
-router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(renderEditForm));
+router.get("/:id/edit", isLoggedIn,
+  upload.single("listing[image]"),  isOwner, wrapAsync(renderEditForm));
 
 export default router;
 

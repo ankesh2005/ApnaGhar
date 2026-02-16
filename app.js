@@ -8,13 +8,15 @@ import methodOverride from "method-override";
 import ejsMate from "ejs-mate";
 import path from "path";
 import ExpressError from "./utils/ExpressError.js";
-import reviews from "./routes/review.js"
-import session from 'express-session'
-import flash from 'connect-flash'
+import reviews from "./routes/review.js";
+import session from 'express-session';
+import MongoStore from "connect-mongo";
+import flash from 'connect-flash';
 import passport from "passport";
-import LocalStrategy from "passport-local"
+import LocalStrategy from "passport-local";
 import { User } from "./models/user.models.js";
-import user from "./routes/user.js"
+import user from "./routes/user.js";
+import { log } from "console";
 
 const app = express();
 app.set("view engine", "ejs");
@@ -24,9 +26,21 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.resolve("public")));
 
+const store=MongoStore.create({
+  mongoUrl:process.env.MONGO_URL,
+  crypto:{
+    secret:process.env.SECRET_KEY
+  },
+  touchAfter:24*3600
+})
 
+store.on("error",()=>{
+  console.log("error in mongo-session store",err);
+  
+})
 
 const sessionOptions={
+  store:store,
   secret:process.env.SECRET_KEY,
   resave:false,
   saveUninitialized:true,
